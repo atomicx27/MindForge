@@ -4,7 +4,7 @@ from core.watchdog import watchdog
 from core.memory import failure_memory
 from agents.madara import madara_orchestrator
 from agents.rimuru import rimuru_node
-from sqlmodel import Session
+from sqlmodel import Session, select
 
 def bootstrap_system():
     print("[AGS v2.0] Initializing L5 Persistence Layers...")
@@ -40,7 +40,7 @@ def run_loop():
         # 2. Simulate Rimuru running the unblocked task
         with Session(engine) as session:
             # We assume Madara set Task A to IN_PROGRESS and assigned to Rimuru
-            tasks = session.exec("SELECT * FROM dagtask WHERE status='IN_PROGRESS'").all()
+            tasks = session.exec(select(DAGTask).where(DAGTask.status=='IN_PROGRESS')).all()
             for t in tasks:
                 res = rimuru_node.execute_task(t.description, ["Context: Init was run."])
                 # Resolve it mechanically

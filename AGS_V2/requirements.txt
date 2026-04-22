@@ -1,0 +1,13 @@
+sqlmodel
+chromadb
+pydantic
+sentence-transformers
+litellm
+fastmcp
+redis
+sse-starlette
+fastapi
+uvicorn
+pytest
+pytest-asyncio
+httpx

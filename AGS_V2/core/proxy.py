@@ -105,7 +105,7 @@ class LLMProviderProxy:
                     return response
                 except Exception as e:
                     print(f"[ERROR] Provider {provider} threw exception: {e}. FAILING OVER...")
-                    raise e
+                    continue
                     
         raise Exception("All LLM Provider buckets exhausted or unavailable.")
 
