@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  # The Core Orchestrator API handling DAG tasks and Dashboard SSE
+  ags_core:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - DB_URL=sqlite:///./database.db
+    volumes:
+      - .:/app
+      - ./memory_data:/app/memory_data
+    depends_on:
+      redis_cache:
+        condition: service_healthy
+
+  # Rate-Limiter Token Bucket cache for litellm
+  redis_cache:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  # The Local Itachi Execution VM Simulator (Isolated container for dry-runs)
+  ags_sandbox:
+    image: python:3.11-slim
+    command: tail -f /dev/null
+    volumes:
+      - ./sandbox_data:/sandbox
+
+  # Next.js Observability Dashboard
+  ags_dashboard:
+    image: node:20-alpine
+    working_dir: /app
+    ports:
+      - "3000:3000"
+    command: npx serve out/ -p 3000
+    depends_on:
+      - ags_core

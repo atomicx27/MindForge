@@ -1,0 +1,81 @@
+# Technical Master Blueprint: Automation-Infinite (Sovereign AGI)
+
+This document is the **Surgical Technical Specification** for building the Sovereign AGI layer. Correcting previous strategic gaps, this blueprint defines the exact mechanics of agency, state, and safety.
+
+---
+
+## 🏗️ 1. The Global State Object (Data Flow)
+
+To ensure seamless coordination between agents (The Forge, the Sentinel, the Oracle), all modules operate on a shared **Sovereign State (S-State)**.
+
+### 11.1 S-State Schema (JSON)
+```json
+{
+  "protocol_version": "1.0",
+  "active_persona": { "id": "CRITICAL_COMPOSITE", "weights": { "risk": 0.8, "synergy": 0.5 } },
+  "system_telemetry": { "cpu_load": 0.45, "vram_usage": "8/12GB", "network_status": "Secure-Mesh" },
+  "memory_tape": [ { "agent": "Forge", "action": "Init-Repo", "status": "Success", "timestamp": "..." } ],
+  "spend_valve": { "tier": 3, "monthly_budget": 50.00, "used": 12.45, "pending_approvals": [] },
+  "active_objectives": [ { "id": "OBJ001", "description": "Shadow Build Hangout-Hub v2", "priority": "High" } ]
+}
+```
+**Mechanism**: Agents do not send messages; they **mutate the state**. When the `S-State` is updated, the parent orchestrator (The General) triggers relevant sub-agents via a Pub/Sub model.
+
+---
+
+## 🎡 2. The Execution Heartbeat (Continuous Loop)
+
+Unlike `Automation5` which was batch-driven, `Automation-Infinite` uses a **Recursive Asynchronous Heartbeat**.
+
+- **Type**: Continuous Polling (60s Pulse) + Event-Driven (Webhooks/Notifications).
+- **The Sentinel Pulse**: Every 60 seconds, the Sentinel scans:
+  - `wiki/concepts/`: For new ideas to synthesize.
+  - `agentic_router/unread/`: For high-priority intervention.
+  - `GitHub/Trending`: For market front-running.
+- **Process Manager**: Managed via `PM2` or a Windows Service for 100% uptime.
+
+---
+
+## 🎭 3. The Identity Transformation Engine (Technical Specs)
+
+Persona is not just text; it is a **Heuristic Filter**.
+
+| Archetype | Temperature | Top_P | Risk Weight | Goal Priority |
+| :--- | :--- | :--- | :--- | :--- |
+| **Rimuru** | 0.4 (Logos) | 0.8 | 0.2 | System-Synergy, Wiki-Consistency |
+| **Goku** | 0.9 (Chaos) | 0.95 | 0.9 | Speed of Code, Uptime, Optimization |
+| **Naruto** | 0.7 (Spirit) | 0.9 | 0.5 | User-Alignment, Memory-Stitching |
+
+**Mechanism**: The `Persona Middleware` hotswaps the LLM's `System_Prompt` and `Hyperparameters` at the start of every logic chain. 
+
+---
+
+## 💳 4. The Spend-Valve API (Constraint Logic)
+
+The Spend-Valve uses a **Budget Sentinel** to prevent resource leaks.
+
+- **Hard Constraints**: 
+  - `MAX_PER_ACTION`: Maximum cost for a single API call/resource launch (e.g., $5.00).
+  - `MONTHLY_CAP`: Total allowance ($50.00).
+- **APIs**:
+  - Integration with **Stripe API** (for freelance billing check) and **Supabase Management API** (for project cost monitoring).
+- **Interaction**: If `Action_Cost > Threshold`, the AGI sets `S-State["spend_valve"]["pending_approvals"]` and triggers a **Windows Toast Notification** or **WhatsApp Alert** to the User.
+
+---
+
+## 🛡️ 5. Failure Handling & Rollback Strategy
+
+The system utilizes **Transactional Agency**.
+
+1.  **Checkpointing**: Before any writing action (Git commit, File Edit, API spend), the AGI saves a `state_snapshot_uuid.json`.
+2.  **Circuit Breaker**: If 3 consecutive sub-tasks fail, the AGI halts and enters `Hibernation Mode`, notifying the user.
+3.  **Atomic Rollback**: If a "Shadow Build" fails a CI/CD check, the AGI autonomously runs `git reset --hard` to the last known stable commit.
+4.  **Sovereign Healing**: If the AGI encounters an `ImportError` or `ModuleNotFoundError` during a forge test, it autonomously runs `pip install` or fixes the `sys.path`.
+
+---
+
+## ✅ 6. Immediate Technical Verification Tasks
+
+1.  **[ ]** Define the exact JSON schema for `infinite_core.db`.
+2.  **[ ]** Build the `persona_middleware.py` that modifies model parameters at runtime.
+3.  **[ ]** Establish the `Tailscale` mesh connection to ensure the Cloud HQ (Phase 2) can see local files.

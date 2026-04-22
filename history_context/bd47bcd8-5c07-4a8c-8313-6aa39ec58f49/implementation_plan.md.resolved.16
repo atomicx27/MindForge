@@ -1,0 +1,57 @@
+# Master Blueprint v6.1: Cloud-Sovereign AGI (Finalized)
+
+This document is the **Absolute Specification** for the cloud-native deployment of Automation-Infinite. 
+
+---
+
+## 🏗️ 1. Infrastructure (Approved)
+
+- **Host**: **Oracle Cloud (Always Free ARM Instance)**.
+  - **Specs**: 4 OCPUs, 24 GB RAM.
+  - **OS**: Ubuntu 22.04 LTS (Recommended for tool compatibility).
+- **Access**: **Password-Protected Public URL**.
+  - **Security**: Nginx Reverse Proxy with Basic Auth or a dedicated Auth Portal.
+  - **Domain**: User-provided or a dynamic DNS (e.g., DuckDNS).
+
+---
+
+## ☁️ 2. Memory & Connectors (Approved)
+
+- **Sync Path**: **Google Drive** mounted via `rclone`.
+  - **Persistence**: Systemd service ensures the GDrive mount survives VM reboots.
+- **Connectors**: **Google OAuth2** (Gmail/Calendar) + **Microsoft OAuth2** (Outlook/Teams).
+  - **Logic**: Dashboard features a manual "Activate Connection" toggle for each provider.
+
+---
+
+## 🎡 3. The Sovereign Architecture
+
+- **S-State Sentry**: Async queue processor running on the VM.
+- **The Forge**: Docker-sandboxed execution on the VM (Zero host write access).
+- **The Oracle**: LiteLLM-routed cloud fallback for high-complexity reasoning.
+
+---
+
+## ✅ 4. Phase 0: The Cloud Lift-Off (IMMEDIATE)
+
+### 4.1 Oracle Provisioning
+1.  **[ ]** User creates Oracle Cloud account.
+2.  **[ ]** Spin up `VM.Standard.A1.Flex` instance (4 OCPU / 24 GB RAM).
+3.  **[ ]** Generate and save SSH Keys.
+
+### 4.2 The Memory Bridge
+1.  **[ ]** Install `rclone` on the VM.
+2.  **[ ]** Authorize GDrive access via `rclone config`.
+3.  **[ ]** Mount the Obsidian Vault directory.
+
+### 4.3 The Singularity Dashboard
+1.  **[ ]** Deploy the **Stitch MCP** generated Dashboard (Vite/Next.js).
+2.  **[ ]** Configure Nginx with Pasword Protection.
+
+---
+
+## 📜 5. Context Summary
+- **Current Goal**: Deploy Sovereign AGI to Cloud HQ.
+- **Project Name**: Automation-Infinite.
+- **Developer**: Pashin Kasad.
+- **Persona Weights**: Rimuru (Logic) / Goku (Code) / Naruto (Coordination).

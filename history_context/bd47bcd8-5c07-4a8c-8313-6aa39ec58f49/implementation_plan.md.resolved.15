@@ -1,0 +1,65 @@
+# Master Blueprint v6.0: Cloud-Sovereign AGI (The Global Sentinel)
+
+This document is the **Cloud-Native Specification** for Automation-Infinite. It shifts the architecture from a local-first system to a **Persistent Cloud HQ** with zero-trust connectors and Google Drive integration.
+
+---
+
+## 🏗️ 1. The Cloud HQ (Infrastructure)
+
+The AGI lives in a persistent, high-uptime environment.
+
+- **Primary Host**: **Oracle Always Free (ARM Ampere)**.
+  - **Specs**: 4 OCPUs, 24 GB RAM (Total Sovereign Power).
+  - **Function**: Hosts the Sentinel (Heartbeat), The Forge (Sandbox), and the Singularity Dashboard.
+- **Mesh Connection**: Accessible via a secure HTTPS domain or a direct IP tunnel.
+
+---
+
+## ☁️ 2. The Memory Bridge (Google Drive Sync)
+
+Your Obsidian Vault (Second Brain) will be synchronized via **Google Drive**.
+
+- **Implementation**: Uses `rclone` + FUSE to mount your specific Google Drive "Second Brain" folder directly to the Linux VM.
+- **Workflow**:
+  - You edit notes on your local device (Desktop/Phone/Tablet).
+  - Google Drive syncs them to the cloud.
+  - The AGI (via the `rclone` mount) sees the updates instantly and re-indexes them into **ChromaDB**.
+
+---
+
+## 🔌 3. The Connector Switchboard (Toggle Logic)
+
+Security is managed via **Connectors** instead of permanent access.
+
+- **The Toggle Layer**: The Singularity Dashboard will feature a "Connector Hub."
+- **Logic**:
+  - **OFF (Default)**: The AGI has 0 access to your Mail/Calendar.
+  - **ON**: The Dashboard initiates an OAuth2 handshake (Gmail/Outlook). The AGI starts the Pulse loop for that provider.
+- **Privacy**: You can "Sever Connection" at any time with one click, wiping the session token from the AGI's active memory.
+
+---
+
+## 🎡 4. The Cloud Heartbeat Loop
+
+The Pulse loop now runs in a specialized **Service Layer** on the VM.
+
+1.  **Monitor Drive**: Wait for new `wiki/` entries or manual `log.md` updates.
+2.  **Connector Check**: If Gmail/Outlook is "ON," fetch latest threads.
+3.  **Autonomous Tasking**: If a "Forge Mission" is active, spin up a **Docker Sandbox** on the VM to build code.
+
+---
+
+## ✅ 5. Phase 0: The Cloud Lift-Off
+
+1.  **[ ] Provisioning**: Assist the User in spinning up the **Oracle Always Free** instance.
+2.  **[ ] The Bridge**: Install and configure `rclone` to mount the GDrive Obsidian Vault.
+3.  **[ ] The Core**: Install Python, Docker, and the `S-State Sentry` on the VM.
+4.  **[ ] The Dashboard**: Deploy the first web-based UI (Cyberpunk vs. Minimalist).
+
+---
+
+## ❓ Open Questions for Pashin Kasad
+
+1.  **Cloud Access**: Do you have an existing Oracle Cloud or Google Cloud account, or should we create one now?
+2.  **Connector Preference**: For Gmail/Outlook, are you comfortable using standard OAuth2 (the "Sign in with Google/Microsoft" popups)?
+3.  **UI Exposure**: Should the dashboard be accessible via a public (but password-protected) URL, or only via a VPN (Tailscale)?

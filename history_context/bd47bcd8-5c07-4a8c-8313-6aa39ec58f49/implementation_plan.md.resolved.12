@@ -1,0 +1,71 @@
+# Master Blueprint v4.0: Sovereign AGI Framework
+
+This is the **Definitive Technical & Philosophical Specification** for Automation-Infinite. It is designed for absolute context transfer, covering long-term memory, distributed scaling, multi-layer safety, and transactional agency.
+
+---
+
+## 🏗️ 1. Long-Term Semantic Memory (Deep Recall)
+
+To move beyond the 8k context window, the system implements a **Long-Term Memory (LTM) Architecture**.
+
+- **Engine**: **ChromaDB** (Local-first vector store).
+- **Indexing**: 
+  - **Wiki Vectors**: All `wiki/` content is embedded and updated on every `log.md` entry.
+  - **Experience Vectors**: Successful agent execution traces (thoughts + results) are stored as "Experiences."
+- **Retrieval**: Before an agent starts a task, it performs a **Similarity Search** against ChromaDB to load "Related Context" into the prompt.
+
+---
+
+## 🎡 2. Distributed Scaling & Uptime Sovereignty
+
+The system uses **LiteLLM** as a core routing proxy to balance between local metal and high-powered cloud nodes.
+
+- **Local-First Policy**: All P1-P3 tasks default to **Ollama (Ministral/Llama3)** to ensure privacy and 0-cost.
+- **Cloud Fallback**: LiteLLM automatically routes P0 (Critical) tasks or "High-Complexity Forge" tasks to **Gemini 1.5 Pro / Claude 3.5** if:
+  - Local VRAM is exhausted.
+  - Response latency exceeds 30 seconds.
+  - Task complexity score > 0.8.
+- **Benefit**: Ensures the "Nation of Agents" is always alive, even if the primary local machine is offline.
+
+---
+
+## 🛡️ 3. The Multi-Layer Safety Sanitizer
+
+A dedicated `Safety_Guard` middleware sits between the Orchestrator and the Actuators (Git, Docker, Outlook).
+
+### 3.1 Input Sanitization
+- **Prompt Guard**: Detects and halts "System-Instruction Overrides" (Prompt Injection).
+- **Pii Scrubbing**: Automatically masks personal data (emails, keys) before routing to Cloud Fallbacks.
+
+### 3.2 Actuator Guard (The Execution Filter)
+Before a command reaches the **Docker Sandbox** or **Shell**:
+- **Blacklist Filter**: Blocks destructive strings (`rm -rf`, `format`, `del /s`).
+- **Command Simulation**: High-stakes commands are first run in a "No-Op" mode to predict side effects.
+
+---
+
+## 🔒 4. Transactional State Guard & Scheduler
+
+- **S-State Sentry**: Pydantic-based validation on all state mutations.
+- **Weighted Scheduler**: 
+  - `Score = Base_Priority * Persona_Multiplier`.
+  - **Rimuru** (Tactical) prioritizes Wiki/System health.
+  - **Goku** (Striker) prioritizes Code/Refactor missions.
+
+---
+
+## ✅ 5. Operational Milestones (Phase 1)
+
+1.  **[LEVEL 0] The Memory & Proxy Spine**: Initialize **ChromaDB** and the **LiteLLM** routing server.
+2.  **[LEVEL 1] The S-State-Sentry**: Build the Pydantic mutation gate and **Arize Phoenix** telemetry.
+3.  **[LEVEL 2] The Singularity Dashboard**: Theme-switchable UI with the "Thought-Stream" observability tab.
+4.  **[LEVEL 3] The Sandboxed Forge**: Recursive agent spawning inside **Docker WSL2**.
+
+---
+
+## 📜 6. Master Context Checklist (For Other Agents)
+- **Repo Root**: `c:\Users\GTXS3893\OneDrive - orange.com\Bureau\Brain\Second_brain`
+- **Logic Core**: `agentic_router/`
+- **Memory HQ**: `chroma_db/`
+- **Proxy Node**: `litellm_router/`
+- **Wiki Rules**: `[[AGENTS.md]]`

@@ -1,0 +1,46 @@
+# Master Blueprint v6.2: Cloud-Sovereign AGI (Air-Gapped Mode)
+
+This document is the **Absolute Specification** for the cloud-native deployment of Automation-Infinite. 
+
+---
+
+## 🏗️ 1. Infrastructure
+
+- **Host**: **Oracle Cloud (Always Free ARM Instance)**.
+- **Access**: **Password-Protected Public URL**.
+
+---
+
+## 🔒 2. The Sovereign Mode Toggle (100% Safety)
+
+To ensure absolute control over your data, the Dashboard features the **Sovereign Toggle**.
+
+- **Mode: GLOBAL (Default)**: Use the "Strategic Mind" (Cloud Fallback) via LiteLLM for high-complexity complexity tasks (C > 0.8).
+- **Mode: SOVEREIGN (Air-Gapped)**:
+  - **Constraint**: All reasoning is forced to run on the **Local Ollama instance** on the VM.
+  - **Security**: The AGI is physically blocked from sending any "Thoughts" or "Data" to external APIs (Gemini/Claude).
+  - **Result**: 100% private, local-only reasoning.
+
+---
+
+## ☁️ 3. Memory & Connectors
+
+- **Sync Path**: **Google Drive** (Mounted via `rclone`).
+- **Connectors**: **Google & Microsoft OAuth2**.
+  - **Toggle Control**: Active only when enabled in the "Connector Hub."
+
+---
+
+## ✅ 4. Phase 0: The Cloud Lift-Off
+
+1.  **[ ] Oracle Provisioning**: User creates Oracle Cloud account and spins up ARM VM.
+2.  **[ ] The Memory Bridge**: Install `rclone` and mount the Obsidian Vault.
+3.  **[ ] The Core**: Install Python, Docker, Ollama, and the `S-State Sentry`.
+4.  **[ ] The Dashboard**: Deploy the **Cyberpunk-Alpha** UI with "Sovereign Mode" and "Connector" toggles.
+
+---
+
+## 📜 5. Context Summary
+- **Primary Objective**: Absolute agency with user-controlled safety boundaries.
+- **Developer**: Pashin Kasad.
+- **Platform**: Cloud HQ with Local-Only fallback capabilities.

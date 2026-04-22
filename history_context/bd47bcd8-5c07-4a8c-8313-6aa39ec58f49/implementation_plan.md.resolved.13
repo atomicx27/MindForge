@@ -1,0 +1,59 @@
+# Master Blueprint v4.1: Sovereign AGI Framework
+
+This is the **Architectural Truth** for Automation-Infinite. Correcting previous gaps, this version defines the exact mechanics of memory governance, complexity mathematics, and experiential learning.
+
+---
+
+## 🏗️ 1. Tiered Memory Governance (Anti-Explosion)
+
+To prevent "Memory Explosion," the system uses a **Selective Retention Model** instead of infinite appending.
+
+### 1.1 The Retention Stack
+- **L0: Pulse Memory (Ephemeral)**: The last 10 log entries in `S-State`. Wiped every 24h.
+- **L1: Context Memory (Vector)**: **ChromaDB** with a **30-day Sliding Window**.
+- **L2: Heritage Memory (Permanent)**: 
+  - **Logic**: Only "Reflections" (summarized learnings) are stored permanently.
+  - **Compaction**: Every Sunday at 0400, the AGI runs a **Memory Compactor**. It identifies older, low-importance vectors, summarizes them into a single "Archival Vector," and deletes the original raw entries.
+
+---
+
+## 🎡 2. Complexity Scoring & Scaling Logic (The Cloud Threshold)
+
+The `Oracle Threshold (0.8)` is calculated using a **Deterministic Complexity Formula**.
+
+### 2.1 The Formula
+`Complexity (C) = (Σ(Tool_W * N) + (D * 0.2) + (T / 1000)) / Benchmark_Max`
+- **Tool_W**: Weight (Read=1, Write=3, Forge=10).
+- **N**: Number of tool invocations.
+- **D**: Reasoning Depth (Total nodes in the chain).
+- **T**: Total Context Tokens.
+
+**Action**: If **C > 0.8**, the `LiteLLM Router` triggers the **Oracle Node** (Cloud Fallback) to handle the reasoning, as it exceeds the local metal's reliable "Critical Thinking" capacity.
+
+---
+
+## 🧠 3. Experience Retrieval (The Reflection Pattern)
+
+The AGI does not just store logs; it learns through **Reflective Indexing**.
+
+### 3.1 The Reflection Cycle
+1.  **Task Success**: Upon completion of a P0/P1 goal, the `Reflection_Agent` generates a **Success Recipe** (a concise JSON of "What worked, What failed, and Common Gotchas").
+2.  **Storage**: The recipe is stored in ChromaDB with metadata `type: recipe`.
+3.  **Recall**: Before starting a new task, the Sentinel performs a `Similarity_Search(Current_Goal, type=recipe)`. 
+4.  **Injection**: If a match > 0.85 similarity is found, the recipe is injected into the **System Prompt** as "Relevant Past Experience."
+
+---
+
+## 🛡️ 4. Multi-Layer Safety & S-State Guard
+
+- **Safety Sanitizer**: Pre-execution Prompt Inspection + Post-execution Command Filtering.
+- **State Sentry**: Pydantic-based validation (Type-safety + Budget bounds).
+
+---
+
+## ✅ 5. Immediate Technical Verification Tasks
+
+1.  **[ ]** Implement the `Complexity_Scorer.py` module.
+2.  **[ ]** Setup the `Memory_Compactor` cron job logic.
+3.  **[ ]** Create the `base_reflection.json` template for experience capture.
+4.  **[ ]** Initialize the `ChromaDB` schema with the `type: recipe` metadata field.

@@ -1,0 +1,73 @@
+# Master Blueprint v3.0: Sovereign AGI Framework
+
+This is the **Definitive Technical Specification** for Automation-Infinite. It incorporates advanced observability, security boundaries, and deterministic control logic to ensure the system is production-ready for both local and cloud deployment.
+
+---
+
+## 🏗️ 1. Core Architecture Services
+
+### 1.1 The Observability Layer (Telemetry)
+To eliminate the "Black Box" problem, the system uses a **Local Observability Stack**.
+- **Engine**: **Arize Phoenix** (Open-Source/Local).
+- **Function**: Every LLM call, agent thought, and tool execution is instrumented with **OpenTelemetry**.
+- **Interface**: A dedicated "Thought-Stream" tab in the Singularity Dashboard for real-time decision replay.
+
+### 1.2 The Sovereign Identity & Auth Boundary
+A zero-trust boundary protects the AGI's action space.
+- **Protocol**: **X-AGI-Token** handshake.
+- **Local Connection**: Dashboard and Orchestrator communicate over encrypted **Unix Sockets** or **Tailscale** tunnels.
+- **Safety**: High-stakes tools (Forge, Spend-Valve) require a signed session token.
+
+---
+
+## 🔒 2. Transactional State Guard (Validation)
+
+To prevent race conditions and illegal states, all mutations go through a **Pydantic Validation Gate**.
+
+### 2.1 The Mutation Pipeline
+1.  **Propose**: Agent sends a `MutationProposal` (JSON).
+2.  **Validate**: The `State-Sentry` checks the proposal against a **Pydantic Model** (e.g., checks for type-safety, budget limits, and conflicting objectives).
+3.  **Atomic Apply**: If valid, the state is committed to `infinite_core.db`. If invalid, the rejection (with reasons) is fed back to the agent for self-correction.
+
+---
+
+## 📅 3. The Persona-Weighted Scheduler
+
+The Persona is not just a "vibe"; it is the **Urgency Heuristic** for the system.
+
+### 3.1 Priority Multiplier Logic
+Tasks in the queue are re-ranked every pulse based on the active **Persona Bias**:
+
+| Persona | Priority Focus | Weight Multiplier |
+| :--- | :--- | :--- |
+| **Rimuru** | Sync/Maintenance/Wiki | 1.5x on `Maintenance_Tasks` |
+| **Goku** | Execution/Performance/Refactor | 1.5x on `Engineering_Tasks` |
+| **Naruto** | Communication/User/Memory | 1.5x on `Engagement_Tasks` |
+
+- **Mechanism**: The Scheduler calculates `Score = Base_Priority * Persona_Multiplier`. The highest score is executed next.
+
+---
+
+## 🛡️ 4. The Sandbox Forge (Security Boundary)
+
+The Forge is fully isolated from the host OS.
+- **Sandboxing**: Code execution happens in ephemeral **Docker (WSL2)** containers.
+- **Resource Capping**: Containers are limited to 20% CPU and 2GB RAM to prevent system hijacking or accidental resource exhaustion.
+- **Output Validation**: Data returned from the sandbox is treated as untrusted and passed through a `Safety_Sanitizer` before entering the AGI's memory.
+
+---
+
+## ✅ 5. Final Implementation Sequence
+
+1.  **[LEVEL 0] The Architecture Foundation**: Build the `S_State-Sentry` (Pydantic models) and initialize the **Phoenix** observability server.
+2.  **[LEVEL 1] The Sentinel & Auth**: Deploy the local background agent with Secure-Token handshake.
+3.  **[LEVEL 2] The Dashboard & Themes**: Build the theme-switchable UI with the "Thought-Stream" observability tab.
+4.  **[LEVEL 3] The Forge & Scheduler**: Enable recursive agent spawning and the weighted priority queue.
+
+---
+
+## 📜 6. Master Context Checklist (For Other Agents)
+- **Repo Root**: `c:\Users\GTXS3893\OneDrive - orange.com\Bureau\Brain\Second_brain`
+- **Logic Core**: `agentic_router/`
+- **Wiki Rules**: `[[AGENTS.md]]`
+- **History**: Successor project to Automation 1-5.

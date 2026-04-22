@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sovereign AGI | V2 Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background-color: #0d1117; color: #c9d1d9; font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif; }
+        .glass-panel { background: rgba(22, 27, 34, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(48, 54, 61, 0.8); border-radius: 12px; }
+        .neon-text-blue { color: #58a6ff; text-shadow: 0 0 10px rgba(88, 166, 255, 0.4); }
+        .neon-text-red { color: #ff7b72; text-shadow: 0 0 10px rgba(255, 123, 114, 0.4); }
+        .neon-text-green { color: #3fb950; text-shadow: 0 0 10px rgba(63, 185, 80, 0.4); }
+        .log-entry { border-left: 3px solid #58a6ff; padding-left: 10px; margin-bottom: 15px; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0d1117; }
+        ::-webkit-scrollbar-thumb { background: #30363d; border-radius: 4px; }
+    </style>
+</head>
+<body class="p-6 h-screen flex flex-col gap-6">
+
+    <!-- Header -->
+    <header class="flex justify-between items-center glass-panel p-4">
+        <div>
+            <h1 class="text-2xl font-bold tracking-wider neon-text-blue">SOVEREIGN AGI v2.0</h1>
+            <p class="text-sm text-gray-400">Multi-Provider Persona Orchestrator</p>
+        </div>
+        <div class="flex gap-4">
+            <div class="px-4 py-2 border border-[#3fb950] rounded-lg text-[#3fb950] bg-[#3fb950]/10 font-bold flex items-center gap-2">
+                <span class="relative flex h-3 w-3">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#3fb950] opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-3 w-3 bg-[#3fb950]"></span>
+                </span>
+                SYSTEM ONLINE
+            </div>
+            <button class="px-6 py-2 bg-red-600/20 border border-red-500 rounded-lg neon-text-red font-bold hover:bg-red-600/40 transition-all shadow-[0_0_15px_rgba(255,0,0,0.3)]">
+                GLOBAL KILL SWITCH
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Grid -->
+    <main class="grid grid-cols-12 gap-6 flex-1 overflow-hidden">
+        
+        <!-- Fleet Status (Left Panel) -->
+        <div class="col-span-3 glass-panel p-5 flex flex-col gap-4 overflow-y-auto">
+            <h2 class="text-lg font-bold border-b border-gray-700 pb-2 mb-2">Persona Fleet Status</h2>
+            
+            <div id="fleet-list" class="flex flex-col gap-3">
+                <!-- Example active persona -->
+                <div class="p-3 bg-blue-500/10 border border-blue-500/30 rounded-lg flex justify-between items-center">
+                    <div>
+                        <h3 class="font-bold text-white">Madara</h3>
+                        <p class="text-xs text-blue-400">T3 CRITICAL • Orchestrator</p>
+                    </div>
+                    <span class="text-xs font-bold px-2 py-1 bg-blue-500/20 text-blue-400 rounded-md animate-pulse">POLLING</span>
+                </div>
+                <!-- Example standby persona -->
+                <div class="p-3 border border-gray-700 rounded-lg flex justify-between items-center opacity-70">
+                    <div>
+                        <h3 class="font-bold">Itachi</h3>
+                        <p class="text-xs text-gray-400">T3 CRITICAL • Sandbox Auditor</p>
+                    </div>
+                    <span class="text-xs font-bold px-2 py-1 bg-gray-800 text-gray-400 rounded-md">IDLE</span>
+                </div>
+                 <div class="p-3 bg-red-500/10 border border-red-500/30 rounded-lg flex justify-between items-center">
+                    <div>
+                        <h3 class="font-bold text-white">Ichigo</h3>
+                        <p class="text-xs text-red-400">T1 TRIVIAL • Security</p>
+                    </div>
+                    <span class="text-xs font-bold px-2 py-1 bg-red-500/20 text-red-400 rounded-md">INTERCEPT</span>
+                </div>
+                <div class="p-3 border border-gray-700 rounded-lg flex justify-between items-center opacity-70">
+                    <div>
+                        <h3 class="font-bold">Naruto</h3>
+                        <p class="text-xs text-gray-400">T2 STANDARD • Self-Healer</p>
+                    </div>
+                    <span class="text-xs font-bold px-2 py-1 bg-gray-800 text-gray-400 rounded-md">IDLE</span>
+                </div>
+                <div class="p-3 border border-gray-700 rounded-lg flex justify-between items-center opacity-70">
+                    <div>
+                        <h3 class="font-bold">Natsu</h3>
+                        <p class="text-xs text-gray-400">T3 CRITICAL • Builder</p>
+                    </div>
+                    <span class="text-xs font-bold px-2 py-1 bg-gray-800 text-gray-400 rounded-md">IDLE</span>
+                </div>
+                <div class="p-3 border border-gray-700 rounded-lg flex justify-between items-center opacity-70">
+                    <div>
+                        <h3 class="font-bold">Rimuru</h3>
+                        <p class="text-xs text-gray-400">T1 TRIVIAL • Context Bridge</p>
+                    </div>
+                    <span class="text-xs font-bold px-2 py-1 bg-gray-800 text-gray-400 rounded-md">IDLE</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- System Execution Stream (Middle Panel) -->
+        <div class="col-span-6 glass-panel p-5 flex flex-col">
+            <h2 class="text-lg font-bold border-b border-gray-700 pb-2 mb-4">Neural Thought Stream</h2>
+            <div class="flex-1 overflow-y-auto pr-2 pb-4 text-sm font-mono flex flex-col justify-end">
+                <div class="log-entry">
+                    <span class="text-gray-500">[10:04:12]</span> <span class="text-blue-400">[Madara]</span> 
+                    Waking up to reality. Polling SQLite DAG queue. Found 1 pending task.
+                </div>
+                <div class="log-entry border-l-red-500">
+                    <span class="text-gray-500">[10:04:14]</span> <span class="text-red-400">[Ichigo]</span> 
+                    Getsuga Tensho! Scanning task prompt for malicious destructive signatures. Threat Level: NONE.
+                </div>
+                <div class="log-entry border-l-gray-500">
+                    <span class="text-gray-500">[10:04:16]</span> <span class="text-gray-400">[System]</span> 
+                    Task C7F-001 (Build python file) unblocked. Routing to Natsu.
+                </div>
+                <div class="log-entry border-l-orange-500">
+                    <span class="text-gray-500">[10:04:20]</span> <span class="text-orange-400">[Natsu]</span> 
+                    I'm all fired up! Generating `write_to_file` syntax code diff. Handoff to Itachi for Validation.
+                </div>
+                 <div class="log-entry animate-pulse">
+                    <span class="text-gray-500">[10:04:22]</span> <span class="text-[#3fb950]">[Itachi]</span> 
+                    Evaluating Diff. Validating Two-Phase Hash: <span class="text-gray-400">9c4b75a1...</span> AWAITING LOCAL EXECUTION...
+                </div>
+            </div>
+        </div>
+
+        <!-- Resources & DAG Tasks (Right Panel) -->
+        <div class="col-span-3 flex flex-col gap-6">
+            
+            <div class="glass-panel p-5 h-1/2 flex flex-col">
+                <h2 class="text-lg font-bold border-b border-gray-700 pb-2 mb-4">DAG Queue</h2>
+                <div class="flex-1 overflow-y-auto">
+                    <div class="p-3 mb-2 bg-gray-800 rounded border border-gray-700">
+                        <div class="flex justify-between items-center mb-1">
+                            <span class="font-bold text-sm text-yellow-500">IN PROGRESS</span>
+                            <span class="text-xs text-gray-400">ID: C7F-001</span>
+                        </div>
+                        <p class="text-sm">Build Python Test File</p>
+                    </div>
+                    <div class="p-3 mb-2 bg-gray-800/50 rounded border border-gray-700/50 opacity-50">
+                        <div class="flex justify-between items-center mb-1">
+                            <span class="font-bold text-sm text-blue-500">BLOCKED</span>
+                            <span class="text-xs text-gray-500">Waiting on: C7F-001</span>
+                        </div>
+                        <p class="text-sm line-through">Run Unit Tests</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-panel p-5 h-1/2 flex flex-col justify-center gap-4">
+                <h2 class="text-lg font-bold border-b border-gray-700 pb-2">Rate Limiter Status</h2>
+                
+                <div>
+                    <div class="flex justify-between text-xs mb-1">
+                        <span class="text-gray-400">Ollama Local (100k TPM)</span>
+                        <span class="text-[#3fb950]">Healthy</span>
+                    </div>
+                    <div class="w-full bg-gray-800 rounded-full h-2">
+                        <div class="bg-[#3fb950] h-2 rounded-full" style="width: 15%"></div>
+                    </div>
+                </div>
+                
+                <div>
+                    <div class="flex justify-between text-xs mb-1">
+                        <span class="text-gray-400">Colab Ngrok Tunnel (200k TPM)</span>
+                        <span class="text-[#3fb950]">Healthy</span>
+                    </div>
+                    <div class="w-full bg-gray-800 rounded-full h-2">
+                        <div class="bg-[#3fb950] h-2 rounded-full" style="width: 5%"></div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="flex justify-between text-xs mb-1">
+                        <span class="text-gray-400">Anthropic T3 Edge (API)</span>
+                        <span class="text-yellow-500">Warning</span>
+                    </div>
+                    <div class="w-full bg-gray-800 rounded-full h-2">
+                        <div class="bg-yellow-500 h-2 rounded-full" style="width: 82%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>

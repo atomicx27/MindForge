@@ -1,0 +1,118 @@
+# Sovereign AGI Technical Manual (Automation-Infinite)
+
+This document is the **Absolute Architectural Truth**. It serves as a high-fidelity context bridge for any agent or engineer tasked with building the Sovereign AGI Framework.
+
+---
+
+## 🏛️ 1. Systematic Architecture
+
+The framework is a **Distributed Multi-Agent System** operating on a shared, validated state.
+
+### 1.1 The Orchestration Stack (Logic Flow)
+```mermaid
+graph TD
+    User([Pashin Kasad]) --> Dashboard[Singularity Dashboard]
+    Dashboard --> Sentry[S-State Sentry]
+    Sentinel[The Sentinel Pulse] -- Read/Update --> Sentry
+    Sentry -- Validate --> SharedState[(infinite_core.db)]
+    
+    subgraph Agents
+        Forge[The Forge - Sandbox]
+        Oracle[The Oracle - Cloud]
+        Nation[Agentic Nation - Recursive]
+    end
+    
+    Sentinel -- Task --> Agents
+    Agents -- Proposal --> Sentry
+```
+
+---
+
+## 🔒 2. Data Models & Schemas
+
+### 2.1 The S-State Schema (Pydantic)
+All system state must conform to the `SovereignState` model.
+```python
+class SovereignState(BaseModel):
+    version: str = "1.0.0"
+    persona: str = "RIMURU"  # Active heuristic policy
+    system_status: SystemStatus  # Resource telemetry
+    p0_queue: List[TaskProposal]  # High-priority interruptions
+    p1_background: List[TaskProposal]  # Forge & Maintenance
+    financial: UserWallet  # Spend-Valve limits and usage
+    memory_heritage: List[ExperienceRecipe]  # ChromaDB pointers
+```
+
+---
+
+## 🎡 3. The Sentinel Heartbeat (Infinite Logic)
+
+The Sentinel is the "Continuous Thinking" loop (poll-based).
+
+### 3.1 The Pulse Cycle (Iterative)
+Every 60s, the Sentinel executes:
+1.  **Sensory Sweep**: Pull unread emails, check Wiki for stub pages, and scan Forge logs.
+2.  **Context Enrichment**: Retrieve `ExperienceRecipes` from **ChromaDB** based on active goals.
+3.  **Tiered Evaluation**: Calculate `Complexity Score (C)`. If `C > 0.8`, route to **Oracle Node (Cloud)**.
+4.  **Task Dispatch**: Push `TaskProposals` to the **Weighted Scheduler**.
+
+---
+
+## 🏗️ 4. The Forge Sandbox (Security Protocol)
+
+The Forge is where code is generated and tested. It is strictly isolated.
+
+- **Sandbox Engine**: Docker Desktop (WSL2 Architecture).
+- **Isolation Rule**: No host volume mounting allowed for execution. Only `forge-output/` is mapped as read-only for result export.
+- **Actuator Guard**: Before executing any `shell` command, the `Actuator_Sentry` regex-filters for destructive patterns (`rm`, `del`, `format`, `mkfs`).
+
+---
+
+## 🎭 5. The Policy Switchboard (Deterministic Control)
+
+The Persona is a **Behavioral Filter Object**.
+
+### 5.1 Persona Configuration Logic
+```json
+{
+  "GOKU_STRIKER": {
+    "logic_mode": "AGRESSIVE",
+    "allow_unsafe_actuators": true,
+    "max_recursion_depth": 10,
+    "scheduler_bias": {"engineering": 1.5, "sync": 0.8},
+    "spend_threshold": 10.00
+  },
+  "RIMURU_TACTICIAN": {
+    "logic_mode": "CONSERVATIVE",
+    "allow_unsafe_actuators": false,
+    "max_recursion_depth": 3,
+    "scheduler_bias": {"sync": 1.5, "engineering": 0.5},
+    "spend_threshold": 0.00
+  }
+}
+```
+
+---
+
+## 🧠 6. Memory & Long-Term Recall
+
+- **L1 (Short-Term)**: Pydantic-validated `AgentState` in SQLite.
+- **L2 (Long-Term)**: **ChromaDB** Vector Store.
+- **The Reflection Pattern**: Upon goal completion, the AGI runs an `Experience_Extractor` that distills the logs into a `SuccessRecipe` (Action/Result/Logic). This Recipe is what persists across reboots.
+
+---
+
+## 🏁 7. Implementation Roadmap (Final Phase Breakdown)
+
+### Phase 0: The Spinal Chord
+- Setup **LiteLLM** for Local-Cloud proxying.
+- Initialize **ChromaDB** and the **Arize Phoenix** observability UI.
+- Build the `S-State Sentry` (the async queue mechanism).
+
+### Phase 1: The Singularity Dashboard
+- Build the dual-theme UI (Cyberpunk/Minimalist) using **Stitch MCP**.
+- Integrate the "Thought-Stream" telemetry panel.
+
+### Phase 2: The Agentic Nation
+- Enable recursive agent spawning and Docker-sandboxed Forge actions.
+- Implement the "Spend-Valve" monthly budget actuator.

@@ -1,0 +1,64 @@
+# Automation-Infinite (Antigravity AGI Core) Implementation Plan
+
+This plan transitions your ecosystem from reactive "Agentic Workflows" to a **Proactive Personal AGI**. It acts as the "Architect" above [[Automation5]] and [[Office-Intelligence]].
+
+## 🧬 Goal: The Self-Actualizing Second Brain
+To create a system that autonomously manages your knowledge, optimizes your code, and surfaces technical opportunities without being prompted.
+
+---
+
+## 🎯 Capability Catalog (What it will do)
+
+### 1. Autonomous Code Mastery (The Architect)
+- **Self-Healing Loop**: Monitors all `logs/` and `sys.stderr` from your projects. If it detects a recurring error, it clones the repo, creates a fix, runs tests, and creates a **Git Pull Request** for you.
+- **Library Evolution**: Scans for technical debt. If a newer library version (e.g., a LangChain update) is released that fixes a known bug in your code, it proposes a refactor.
+- **Admin Git Agency**: Manages your branches, performs "Commit Logic" (writing clean, purposeful commit messages), and keeps your [[GitHub]] profile active with meaningful contributions.
+
+### 2. Proactive Intelligence (The Librarian)
+- **The curiosity loop**: Every day at 9:00 AM, it performs a deep-web scan for the "Top 3 Most Fascinating Technical Releases" that impact your specific tech stack (Next.js, Three.js, Gemini API).
+- **Auto-Summarization & Linking**: When you "clip" an article to `raw/sources/`, the Librarian automatically generates a [[LLM-Wiki]] summary, updates the `wiki/index.md`, and links it to relevant [[Entities]] and [[Concepts]].
+- **Career Sentinel**: Tailored to your [[Pashin-Kasad]] profile, it scans for internship/job listings that specifically match your "Builder-Founder" DNA and creates an Outlook Draft with a pre-filled, personalized cover letter.
+
+### 3. Global Orchestration (The General)
+- **Cross-Platform Bridge**: Moves data between Outlook, PowerPoint, and your local file system. (e.g., *"Take the core insights from the last 3 emails about 'Marketplace liquidity' and update the [[Freelance-Marketplace]] entity and its related PPT deck."*)
+- **Energy-Aware Scheduling**: Analyzes your `wiki/log.md`. If it sees you are "Over-indexed" on research, it suggests a "Coding Sprint" to balance your [[Personal-Philosophy|Curiosity Battery]].
+
+---
+
+## 🏗️ Technical Architecture
+
+### 1. Dual-Execution Mode
+- **Persistent Mode**: A lightweight Python service (`sentinel_loop.py`) that handles background sensors.
+- **Manual Mode**: A specialized CLI (`ai trigger --mode [synthesis|refactor|research]`) for development and debugging.
+
+### 2. Dynamic Memory Engine
+- **SQLite Core**: A global database (`global_agi.db`) shared across all your projects to prevent context loss between [[Automation3]] and [[Automation5]].
+- **The "Pulse" Buffer**: A temporary JSON state that tracks what the AGI is "currently obsessing over."
+
+### 3. Safety & Control
+- **Git Sandboxing**: All autonomous code changes happen on a `sentinel-[hash]` branch. No direct pushes to `main`.
+- **Approval Gateway**: The [[Vite]]-based Dashboard acts as the final "Green Light" before any real-world action (sending emails, committing code) is finalized.
+
+---
+
+## 🛠️ Operational Milestones
+
+1.  **[PHASE 1] The Sentinel Link**: Establishing the global SQLite state and Git-admin credentials.
+2.  **[PHASE 2] The Synthesis Engine**: Automating the `raw/sources/ -> wiki/` pipeline.
+3.  **[PHASE 3] The Architect Cycle**: Deploying the first "Self-Healing" node for [[Automation5]].
+4.  **[PHASE 4] The Control Center**: Building the Vite-based UI to visualize the reasoning graph.
+
+---
+
+## Open Questions
+- **Telemetry**: Do you want a terminal "Toast" notification (Windows system tray) whenever the Sentinel initiates a scan, or should it stay purely silent in the background?
+
+## Verification Plan
+
+### Automated
+- **PR Generation Verification**: Simulate a bug in a test script and verify the Sentinel creates a valid Git PR with the fix.
+- **Cross-Reference Integrity**: Verify that a new entity created by the AGI doesn't create "Dead Links" in the Wiki.
+
+### Manual
+- User-review of the first "Curiosity Feed" report.
+- Visual check of the reasoning graph in the React Dashboard.

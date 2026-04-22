@@ -1,0 +1,77 @@
+# Hardened Master Blueprint: Automation-Infinite (Sovereign AGI)
+
+This document is the **Sovereign Architecture Specification**. It corrects the critical technical vulnerabilities identified in previous iterations, specifically addressing race conditions, execution security, and deterministic logic.
+
+---
+
+## 🏗️ 1. The State Orchestrator (Solving Race Conditions)
+
+To prevent race conditions where multiple agents (e.g., Forge and Oracle) attempt to mutate the `S-State` simultaneously, we move from a "Mutation Model" to an **"Update Request Model."**
+
+### 11.1 The State Service (Locker)
+- **Architecture**: A central `S-State-Service` running as an async singleton.
+- **Protocol**:
+  - Agents **read** the state freely but cannot write to it directly.
+  - To change the state, an agent must send an `UpdateProposal` to a **FIFO Message Queue** (using `asyncio.Queue`).
+  - The `State-Service` processes one proposal at a time, validating the mutation before applying it to the source of truth (`infinite_core.db`).
+
+---
+
+## 🛡️ 2. The Forge Sandbox (Execution Security)
+
+Running AI-generated code directly on the host machine is a critical risk. The Forge must be isolated.
+
+### 2.1 The Containerized Forge
+- **Engine**: **Docker Desktop (WSL2 Architecture)**.
+- **Workflow**:
+  - When the Forge builds an MVP, it generates a `Dockerfile` and a `docker-compose.yml`.
+  - The code is executed **inside** a transient container with **read-only access** to specific host directories and **zero access** to the rest of the Windows system.
+  - **Memory/CPU Limits**: Containers are capped to prevent resource exhaustion crashes.
+
+---
+
+## 🎭 3. Deterministic Persona Logic (Logic Switchboard)
+
+The Persona system is now a **Deterministic Configuration Layer**, not just a prompting heuristic.
+
+### 3.1 The Archetype Switchboard
+Every Persona ID is mapped to a static **Policy Object** that dictates what the system is *allowed* to do.
+
+| Persona | `allow_unsafe_write` | `user_confirm_threshold` | `retry_policy` | `priority_weight` |
+| :--- | :--- | :--- | :--- | :--- |
+| **Rimuru** | False | $0.00 (Always ask) | Conservative | High (System Stability) |
+| **Goku** | True | $10.00 | Aggressive | Medium (Performance) |
+| **Naruto** | False | $5.00 | Resilience-focused | High (User Engagement) |
+
+**Technical Implementation**: Before any tool call, the orchestrator checks the `active_policy` object to see if the action is permitted within that persona's constraints.
+
+---
+
+## 📅 4. The Sovereign Scheduler (Task Prioritization)
+
+To manage the "Nation of Agents," we need a **Tiered Scheduler**.
+
+### 4.1 Priority Queue Logic
+All tasks are assigned a Priority Level (P0-P3):
+- **P0: Critical Interventions** (System failures, Security breaches).
+- **P1: Real-time Comms** (High-priority Outlook drafts, user chat).
+- **P2: Forge Background Activity** (Shadow building).
+- **P3: Maintenance & Synthesis** (Wiki cleanup, strategy mirroring).
+
+**Algorithm**: The `S-State-Service` uses a **Weighted Round Robin** scheduler to ensure P0 tasks are never blocked by background Forge activity.
+
+---
+
+## 🛡️ 5. Failure Handling: Transactional Agency
+
+1.  **Atomic State Snapshots**: Every successful P0/P1 task mutation persists a snapshot.
+2.  **State Rollback**: In the event of a race-condition detected by the `S-State-Service` (e.g., failed validation), the system rolls back to the last valid `S-State` and pauses the offending agent.
+
+---
+
+## ✅ 6. Hardened Implementation Tasks (Level 1)
+
+1.  **[ ]** Build `state_orchestrator.py` with the async `UpdateProposal` queue.
+2.  **[ ]** Initialize a Docker `base-forge` image with Node.js/Python pre-installed for sandboxing.
+3.  **[ ]** Define the `PolicySchema` used by the Persona Switchboard.
+4.  **[ ]** Implement the `WeightedScheduler` loop in the main AGI Heartbeat.
