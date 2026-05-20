@@ -13,7 +13,7 @@ async def task_stream_generator() -> AsyncGenerator[dict, None]:
     
     while True:
         with Session(engine) as session:
-            tasks = session.exec("SELECT id, description, status, assigned_persona, time_started FROM dagtask").all()
+            tasks = session.exec(select(DAGTask)).all()
             
             # Simple string hash logic to only push data when state changes
             current_state = str([(t.id, t.status) for t in tasks])
