@@ -21,6 +21,7 @@ class IchigoAgent:
             re.compile(r"chmod\s+-R\s+777"),
             re.compile(r"killall")
         ]
+        self.destructive_patterns = [re.compile(p) for p in self._patterns]
 
     def intercept(self, task_description: str) -> AgentResult:
         print(f"[{self.persona_name.value}] 'Getsuga Tensho!' Scanning for system threats...")
