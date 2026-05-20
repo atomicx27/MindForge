@@ -13,13 +13,14 @@ class IchigoAgent:
     
     def __init__(self):
         self.persona_name = PersonaName.ICHIGO
-        self.destructive_patterns = [
+        self._patterns = [
             r"rm\s+-rf", 
             r"drop\s+table", 
             r"format\s+[c-z]:",
-            r"chmod\s+-R\s+777",
+            r"chmod\s+-r\s+777",
             r"killall"
         ]
+        self.destructive_patterns = [re.compile(p) for p in self._patterns]
 
     def intercept(self, task_description: str) -> AgentResult:
         print(f"[{self.persona_name.value}] 'Getsuga Tensho!' Scanning for system threats...")
@@ -27,7 +28,7 @@ class IchigoAgent:
         # Extremely fast static analysis before even hitting LLM
         lower_task = task_description.lower()
         for pattern in self.destructive_patterns:
-            if re.search(pattern, lower_task):
+            if pattern.search(lower_task):
                 print(f"[{self.persona_name.value}] POTENTIAL THREAT DETECTED. Action blocked.")
                 return AgentResult(
                     task_id="security-intercept",
