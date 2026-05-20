@@ -3,36 +3,41 @@ from sse_starlette.sse import EventSourceResponse
 from sqlmodel import Session, select
 import asyncio
 from core.db import engine, DAGTask
-from typing import AsyncGenerator
+from typing import AsyncGenerator, List
 
 app = FastAPI(title="AGS Observability API")
+
+def get_dag_tasks_sync() -> List[DAGTask]:
+    """Synchronous database query to fetch all DAG tasks."""
+    with Session(engine) as session:
+        return session.exec("SELECT id, description, status, assigned_persona, time_started FROM dagtask").all()
 
 async def task_stream_generator() -> AsyncGenerator[dict, None]:
     """Yields DAG task state changes out to the NextJS frontend."""
     last_checksum = None
     
     while True:
-        with Session(engine) as session:
-            tasks = session.exec(select(DAGTask)).all()
+        # Offload the blocking database operation to a separate thread
+        tasks = await asyncio.to_thread(get_dag_tasks_sync)
+
+        # Simple string hash logic to only push data when state changes
+        current_state = str([(t.id, t.status) for t in tasks])
+        if current_state != last_checksum:
+            last_checksum = current_state
             
-            # Simple string hash logic to only push data when state changes
-            current_state = str([(t.id, t.status) for t in tasks])
-            if current_state != last_checksum:
-                last_checksum = current_state
-                
-                payload = [
-                    {
-                        "id": str(t.id),
-                        "description": t.description,
-                        "status": t.status,
-                        "persona": t.assigned_persona
-                    } for t in tasks
-                ]
-                
-                yield {
-                    "event": "dag_update",
-                    "data": payload
-                }
+            payload = [
+                {
+                    "id": str(t.id),
+                    "description": t.description,
+                    "status": t.status,
+                    "persona": t.assigned_persona
+                } for t in tasks
+            ]
+
+            yield {
+                "event": "dag_update",
+                "data": payload
+            }
                 
         await asyncio.sleep(2)
 
