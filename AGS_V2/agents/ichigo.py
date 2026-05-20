@@ -13,11 +13,12 @@ class IchigoAgent:
     
     def __init__(self):
         self.persona_name = PersonaName.ICHIGO
+        # Patterns are matched against lowercased input
         self.destructive_patterns = [
             r"rm\s+-rf", 
             r"drop\s+table", 
             r"format\s+[c-z]:",
-            r"chmod\s+-R\s+777",
+            r"chmod\s+(-r\s+)?777",
             r"killall"
         ]
 
